@@ -1,0 +1,30 @@
+{
+  "name": "cher-ground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon dist/index.js"
+  },
+  "author": "taeyeong",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^3.9.2",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "inversify": "^6.0.1",
+    "mysql2": "^2.3.3",
+    "prettier-plugin-prisma": "^3.9.0",
+    "reflect-metadata": "^0.1.13",
+    "save-dev": "^0.0.1-security",
+    "typeorm": "^0.2.42"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.18",
+    "nodemon": "^2.0.15",
+    "prisma": "^3.9.2"
+  }
+}

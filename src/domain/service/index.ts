@@ -8,4 +8,8 @@ export interface NoticeService {
 
 export interface BannerService {
   makeBanner(bannerData);
+  readAllBanners();
+  readBannerDetail(id: number);
+  updateBanner(id: number, bannerData);
+  deleteBanner(id: number);
 }

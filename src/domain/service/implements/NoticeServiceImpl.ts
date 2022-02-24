@@ -20,14 +20,14 @@ export class NoticeServiceImpl implements NoticeService {
   }
 
   readNoticeDetail(id: number) {
-    this.noticeRepository.readNoticeById();
+    this.noticeRepository.readNoticeById(id);
   }
 
   updateNotice(id: number, noticeData) {
-    this.noticeRepository.updateNoticeById();
+    this.noticeRepository.updateNoticeById(id, noticeData);
   }
 
   deleteNotice(id: number) {
-    this.noticeRepository.deleteNoticeById();
+    this.noticeRepository.deleteNoticeById(id);
   }
 }

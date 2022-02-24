@@ -39,15 +39,15 @@ export class NoticeRouterImpl implements NoticeRouter {
 
       this.noticeController.updateNotice(id, noticeData);
 
-      return res.status.(200).json({message: 'UPDATE_SUCCESS'})
+      return res.status(200).json({ message: 'UPDATE_SUCCESS' });
     });
 
-    this.router.delete('/:id', (req, res)=> {
-      const {id} = req.params;
+    this.router.delete('/:id', (req, res) => {
+      const { id } = req.params;
 
       this.noticeController.deleteNotice(id);
 
-      return res.status(200).json({message: 'DELETE_SUCCESS'})
-    })
+      return res.status(200).json({ message: 'DELETE_SUCCESS' });
+    });
   }
 }

@@ -5,3 +5,7 @@ export interface NoticeRepository {
   updateNoticeById();
   deleteNoticeById();
 }
+
+export interface BannerRepository {
+  createBanner();
+}

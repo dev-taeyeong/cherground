@@ -8,6 +8,10 @@ export class NoticeServiceImpl implements NoticeService {
   }
 
   makeNotice(noticeData) {
+    // 해당 노출 위치, 동일한 시간범위에 있는 공지 조회
+    this.noticeRepository.readNoticeByTimeAndSubLocation();
+
+    // 공지 생성
     this.noticeRepository.createNotice(noticeData);
   }
 

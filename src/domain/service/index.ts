@@ -5,3 +5,7 @@ export interface NoticeService {
   updateNotice(id: number, noticeData);
   deleteNotice(id: number);
 }
+
+export interface BannerService {
+  makeBanner(bannerData);
+}

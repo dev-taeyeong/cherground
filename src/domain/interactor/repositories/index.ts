@@ -1,11 +1,15 @@
 export interface NoticeRepository {
-  createNotice();
+  createNotice(noticeData);
   readAllNotices();
-  readNoticeById();
-  updateNoticeById();
-  deleteNoticeById();
+  readNoticeById(id);
+  updateNoticeById(id, noticeData);
+  deleteNoticeById(id);
 }
 
 export interface BannerRepository {
-  createBanner();
+  createBanner(bannerData);
+  readAllBanners();
+  readBannerById(id);
+  updateBannerById(id, bannerData);
+  deleteBannerByid(id);
 }

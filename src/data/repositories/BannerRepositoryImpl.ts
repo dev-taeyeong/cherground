@@ -11,4 +11,12 @@ export class BannerRepoitoryImpl implements BannerRepository {
   createBanner(bannerData) {
     this.bannerDao.createBanner(bannerData);
   }
+
+  readAllBanners() {}
+
+  readBannerById(id) {}
+
+  updateBannerById(id, bannerData) {}
+
+  deleteBannerByid(id) {}
 }

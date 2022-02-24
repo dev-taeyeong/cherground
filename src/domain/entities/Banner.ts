@@ -1,10 +1,10 @@
-export interface Notice {
+export interface Banner {
   id: number;
   title: string;
-  description: string;
-  category: string;
-  image_exposure: boolean;
-  image_url: string;
-  start_time: Date;
-  end_time: Date;
+  subLocationId: number;
+  imageUrl: string;
+  linkUrl: string;
+  exposureTime: number;
+  startTime: Date;
+  endTime: Date;
 }

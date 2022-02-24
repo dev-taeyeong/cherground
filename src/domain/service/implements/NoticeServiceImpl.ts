@@ -10,4 +10,20 @@ export class NoticeServiceImpl implements NoticeService {
   makeNotice(noticeData) {
     this.noticeRepository.createNotice(noticeData);
   }
+
+  readAllNotice() {
+    this.noticeRepository.readAllNotice();
+  }
+
+  readNoticeDetail(id: number) {
+    this.noticeRepository.readNoticeById();
+  }
+
+  updateNotice(id: number, noticeData) {
+    this.noticeRepository.updateNoticeById();
+  }
+
+  deleteNotice(id: number) {
+    this.noticeRepository.deleteNoticeById();
+  }
 }

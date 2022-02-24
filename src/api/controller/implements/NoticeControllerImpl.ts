@@ -10,4 +10,20 @@ export class NoticeControllerImpl implements NoticeController {
   makeNotice(noticeData: any) {
     this.noticeService.makeNotice(noticeData);
   }
+
+  readAllNotices() {
+    this.noticeService.readAllNotices();
+  }
+
+  readNoticeDetail(id: number) {
+    this.noticeService.readNoticeDetail(id);
+  }
+
+  updateNotice(id: number, noticeData) {
+    this.noticeService.updateNotice(id, noticeData);
+  }
+
+  deleteNotice(id: number) {
+    this.noticeService.deleteNotice(id);
+  }
 }

@@ -1,6 +1,6 @@
 export interface NoticeRepository {
   createNotice();
-  readAllNotice();
+  readAllNotices();
   readNoticeById();
   updateNoticeById();
   deleteNoticeById();

@@ -13,3 +13,7 @@ export interface BannerController {
   updateBanner(id: number, bannerData);
   deleteBanner(id: number);
 }
+
+export interface ContentController {
+  readAllContents();
+}

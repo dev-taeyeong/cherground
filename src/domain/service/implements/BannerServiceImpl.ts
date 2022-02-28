@@ -1,4 +1,5 @@
 import { BannerService } from '..';
+import { Banner } from '../../entities/Banner';
 import { BannerRepository } from '../../interactor/repositories';
 
 export class BannerServiceImpl implements BannerService {
@@ -7,7 +8,8 @@ export class BannerServiceImpl implements BannerService {
     this.bannerRepository = bannerRepository;
   }
 
-  makeBanner(bannerData) {
+  // 배너 생성
+  makeBanner(bannerData: Banner) {
     const { location, startTime, endTime } = bannerData;
 
     // 1. 해당 위치에 있는 배너 목록 조회

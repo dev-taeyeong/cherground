@@ -1,29 +1,28 @@
+import { inject, injectable } from 'inversify';
 import { BannerController } from '..';
 import { BannerService } from '../../../domain/service';
+import { TYPES } from '../../../TYPES';
 
+@injectable()
 export class BannerControllerImpl implements BannerController {
   bannerService: BannerService;
-  constructor(bannerService: BannerService) {
+  constructor(@inject(TYPES.BannerService) bannerService: BannerService) {
     this.bannerService = bannerService;
   }
 
   makeBanner(bannerData: any) {
-    this.bannerService.makeBanner(bannerData);
-  }
-
-  readAllBanners() {
-    this.bannerService.readAllBanners();
+    const { title, productType, mediaLocation, startTime, endTime } =
+      bannerData;
+    return this.bannerService.getOverlapBannerSchedules(
+      title,
+      productType,
+      mediaLocation,
+      startTime,
+      endTime
+    );
   }
 
   readBannerDetail(id: number) {
-    this.bannerService.readBannerDetail(id);
-  }
-
-  updateBanner(id: number, bannerData) {
-    this.bannerService.updateBanner(id, bannerData);
-  }
-
-  deleteBanner(id: number) {
-    this.bannerService.deleteBanner(id);
+    return this.bannerService.getBannerDetail(id);
   }
 }

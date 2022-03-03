@@ -1,10 +1,5 @@
-import { Post } from './Post';
-
-export interface Banner extends Post {
-  linkUrl?: string; // 배너를 클릭했을 때 이동할 url, Nullable(링크가 없을 경우 Null)
-  imageUrl: string; // 콘텐츠에 표시될 이미지 url
-}
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 //
 //
 //
@@ -17,7 +12,6 @@ export interface Banner extends Post {
 //
 //
 //
-
 // export interface BannerCreationFormRequestModel {
 //   title: string;
 //   subLocationId: number;

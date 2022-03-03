@@ -1,5 +1,10 @@
+import 'reflect-metadata';
 import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
 import { Routes } from './api/routes';
+import { container } from './inversify.config';
+import { TYPES } from './TYPES';
 
 class App {
   private app: express.Application;
@@ -7,10 +12,13 @@ class App {
   private routes: Routes;
 
   constructor() {
+    dotenv.config();
+    this.routes = container.get<Routes>(TYPES.Routes);
     this.PORT = process.env.PORT;
     this.app = express();
+    this.app.use(cors());
     this.app.use(express.json());
-    this.app.use();
+    this.app.use(this.routes.router);
   }
 
   public listen() {

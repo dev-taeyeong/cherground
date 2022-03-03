@@ -1,4 +1,5 @@
 import { NoticeService } from '..';
+import { Notice } from '../../entities/Notice';
 import { NoticeRepository } from '../../interactor/repositories';
 
 export class NoticeServiceImpl implements NoticeService {
@@ -7,27 +8,13 @@ export class NoticeServiceImpl implements NoticeService {
     this.noticeRepository = noticeRepository;
   }
 
-  makeNotice(noticeData) {
-    // 해당 노출 위치, 동일한 시간범위에 있는 공지 조회
-    this.noticeRepository.readNoticeByTimeAndSubLocation();
-
-    // 공지 생성
-    this.noticeRepository.createNotice(noticeData);
+  validateNoticeOverlap(notice: Notice): Promise<boolean> {
+    return this.noticeRepository.getNoticeByTypeAndTime(
+      notice.type,
+      notice.startTime,
+      notice.endTime
+    );
   }
 
-  readAllNotices() {
-    this.noticeRepository.readAllNotices();
-  }
-
-  readNoticeDetail(id: number) {
-    this.noticeRepository.readNoticeById(id);
-  }
-
-  updateNotice(id: number, noticeData) {
-    this.noticeRepository.updateNoticeById(id, noticeData);
-  }
-
-  deleteNotice(id: number) {
-    this.noticeRepository.deleteNoticeById(id);
-  }
+  makeNotice(notice: Notice): Promise<void> {}
 }

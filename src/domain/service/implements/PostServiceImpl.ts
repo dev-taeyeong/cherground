@@ -6,7 +6,7 @@ export class PostServiceImpl implements PostService {
 
   getAllPosts(): Promise<Post[]> {}
 
-  getPostsList(
+  getPostList(
     condition: number,
     state: { live: boolean; reservation: boolean; end: boolean }
   ): Promise<Post[]> {}

@@ -11,7 +11,6 @@ export interface Post {
   // 소매 (대시보드01, 대시보드02, 주문01)
   // 도매 (대시보드01, 알림톡01)
 
-  // detail: Banner | Notice;
   startTime: Date; // 게시물이 등록될 시간 (년 월 일 시 분)
   endTime: Date; // 게시물이 종료될 시간 (년 월 일 시 분)
 }

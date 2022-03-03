@@ -1,3 +1,7 @@
+import { Banner } from '../../domain/entities/Banner';
+import { Post } from '../../domain/entities/Post';
+import { StateData } from '../../TYPES';
+
 export interface NoticeController {
   makeNotice(noticeData);
   readAllNotices();
@@ -8,12 +12,9 @@ export interface NoticeController {
 
 export interface BannerController {
   makeBanner(bannerData);
-  readAllBanners();
-  readBannerDetail(id: number);
-  updateBanner(id: number, bannerData);
-  deleteBanner(id: number);
+  readBannerDetail(id: number): Promise<Banner>;
 }
 
-export interface ContentController {
-  readAllContents();
+export interface PostController {
+  getPostList(condition: number, state: StateData): Promise<Post>;
 }

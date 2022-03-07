@@ -29,8 +29,8 @@ export class DuplicateScheduleRepositoryImpl
       }
     );
 
-    return getDuplicateScheduleData.then((data: DuplicateSchedule[]) =>
-      data.filter((duplicateSchedule) => {
+    return getDuplicateScheduleData.then((data: DuplicateSchedule[]) => {
+      return data.filter((duplicateSchedule) => {
         if (
           new Date(duplicateSchedule.scheduleStartTime).getTime() <
             new Date(endTime).getTime() &&
@@ -39,8 +39,8 @@ export class DuplicateScheduleRepositoryImpl
         ) {
           return duplicateSchedule;
         }
-      })
-    );
+      });
+    });
   }
 
   createDuplicateSchedule(

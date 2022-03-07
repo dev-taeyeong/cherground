@@ -28,7 +28,7 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
     imageUrl: string,
     startTime: string,
     endTime: string
-  ): Promise<void | DuplicateSchedule[]> {
+  ): Promise<DuplicateSchedule[]> {
     return this.duplicateScheduleRepository
       .getDuplicateSchedule(
         contentType,
@@ -42,6 +42,38 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
         endTime
       )
       .then((duplicateSchedules) => {
+        // 중복되는 스케줄이 없을 때
+        if (duplicateSchedules.length === 0) {
+          const schedule: DuplicateSchedule[] = [
+            {
+              id: null,
+              overlapBanners: [
+                {
+                  banner: {
+                    id: null,
+                    isLink,
+                    connectionLink,
+                    imageUrl,
+                    title,
+                    contentType,
+                    service,
+                    bannerExposePlace,
+                    startTime,
+                    endTime,
+                  },
+                  ordinal: 'first',
+                },
+              ],
+              bannerExposePlace,
+              exposeInterval: '4sec',
+              scheduleStartTime: startTime,
+              scheduleEndTime: endTime,
+            },
+          ];
+
+          return schedule;
+        }
+
         let cutPointStart: null | number = null;
         let cutPointEnd: null | number = null;
         let createCount = 0;
@@ -78,11 +110,9 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
 
           duplicateSchedules[duplicateSchedules.length - 1].id = null;
           duplicateSchedules[duplicateSchedules.length - 1].scheduleStartTime =
-            new Date(startTime);
+            startTime;
 
-          duplicateSchedules[cutPointStart].scheduleEndTime = new Date(
-            startTime
-          );
+          duplicateSchedules[cutPointStart].scheduleEndTime = startTime;
 
           createCount++;
         }
@@ -103,7 +133,7 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
             duplicateSchedules[duplicateSchedules.length - 1].scheduleStartTime;
 
           duplicateSchedules[duplicateSchedules.length - 1].scheduleStartTime =
-            new Date(startTime);
+            startTime;
 
           createCount++;
         }
@@ -116,9 +146,9 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
 
           duplicateSchedules[duplicateSchedules.length - 1].id = null;
           duplicateSchedules[duplicateSchedules.length - 1].scheduleEndTime =
-            new Date(endTime);
+            endTime;
 
-          duplicateSchedules[cutPointEnd].scheduleStartTime = new Date(endTime);
+          duplicateSchedules[cutPointEnd].scheduleStartTime = endTime;
 
           createCount++;
         }
@@ -146,31 +176,31 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
             duplicateSchedules[duplicateSchedules.length - 1].scheduleEndTime;
 
           duplicateSchedules[duplicateSchedules.length - 1].scheduleEndTime =
-            new Date(endTime);
+            endTime;
         }
 
         // 중복되는 배너 스케줄에 새로 들어온 배너 추가해주기
         duplicateSchedules.forEach(
           (overlapBannerSchedule: DuplicateSchedule, index: number) => {
-            overlapBannerSchedule.overlapBanners.forEach((overlapBanner) => {
-              switch (overlapBanner.ordinal) {
-                case 'first':
-                  overlapBanner.ordinal = 'second';
-                  break;
-                case 'second':
-                  overlapBanner.ordinal = 'third';
-                  break;
-                case 'third':
-                  overlapBanner.ordinal = 'fourth';
-                  break;
-                case 'fourth':
-                  overlapBanner.ordinal = 'fifth';
-                default:
-                  throw new Error('There are already 5 banners');
-              }
-            });
-
             if (index !== cutPointStart && index !== cutPointEnd) {
+              overlapBannerSchedule.overlapBanners.forEach((overlapBanner) => {
+                switch (overlapBanner.ordinal) {
+                  case 'first':
+                    overlapBanner.ordinal = 'second';
+                    break;
+                  case 'second':
+                    overlapBanner.ordinal = 'third';
+                    break;
+                  case 'third':
+                    overlapBanner.ordinal = 'fourth';
+                    break;
+                  case 'fourth':
+                    overlapBanner.ordinal = 'fifth';
+                  default:
+                    throw new Error('There are already 5 banners');
+                }
+              });
+
               overlapBannerSchedule.overlapBanners.push({
                 banner: {
                   id: null,

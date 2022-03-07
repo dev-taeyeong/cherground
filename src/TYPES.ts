@@ -12,6 +12,12 @@ export const TYPES = {
   DuplicateScheduleController: Symbol('DuplicateScheduleController'),
   DuplicateScheduleService: Symbol('DuplicateScheduleService'),
   DuplicateScheduleRepository: Symbol('DuplicateScheduleRepository'),
+
+  // Announce
+  AnnounceRouter: Symbol('AnnounceRouter'),
+  AnnounceController: Symbol('AnnounceController'),
+  AnnounceService: Symbol('AnnounceService'),
+  AnnounceRepository: Symbol('AnnounceRepository'),
 };
 
 export type StateData = { live: boolean; reservation: boolean; end: boolean };

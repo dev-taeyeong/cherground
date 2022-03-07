@@ -12,8 +12,8 @@ export interface DuplicateScheduleService {
     isLink: boolean,
     connectionLink: string,
     imageUrl: string,
-    startTime: Date,
-    endTime: Date
+    startTime: string,
+    endTime: string
   ): Promise<DuplicateSchedule[] | void>;
 
   makeDuplicateSchedule(
@@ -24,5 +24,13 @@ export interface DuplicateScheduleService {
 
 export interface BannerService {
   makeBanner(banner: Banner): Promise<string>; // 배너 생성
-  readWeekBanners(weekStart: Date, currentTime: Date): Promise<Banner[]>;
+  readWeeklyBanners(weekStart: string, currentTime: string): Promise<Banner[]>;
+}
+
+export interface AnnounceService {
+  makeAnnounce(announce: Announce): Promise<void>;
+  readWeeklyAnnounce(
+    weekStart: string,
+    currentTime: string
+  ): Promise<Announce[]>;
 }

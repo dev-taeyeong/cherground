@@ -9,7 +9,8 @@ import { DuplicateScheduleRepository } from '../../interactor/repositories';
 
 @injectable()
 export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
-  duplicateScheduleRepository: DuplicateScheduleRepository;
+  private duplicateScheduleRepository: DuplicateScheduleRepository;
+
   constructor(
     @inject(TYPES.DuplicateScheduleRepository)
     duplicateScheduleRepository: DuplicateScheduleRepository
@@ -25,8 +26,8 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
     isLink: boolean,
     connectionLink: string,
     imageUrl: string,
-    startTime: Date,
-    endTime: Date
+    startTime: string,
+    endTime: string
   ): Promise<void | DuplicateSchedule[]> {
     return this.duplicateScheduleRepository
       .getDuplicateSchedule(

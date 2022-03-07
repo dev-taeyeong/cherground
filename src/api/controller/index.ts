@@ -1,3 +1,4 @@
+import { Announce } from '../../domain/entities/Announce';
 import { Banner } from '../../domain/entities/Banner';
 import { DuplicateSchedule } from '../../domain/entities/DuplicateSchedule';
 
@@ -14,5 +15,13 @@ export interface DuplicateScheduleController {
 
 export interface BannerController {
   makeBanner(banner: Banner): Promise<string>;
-  readWeekBanners(weekStart: Date, currentTime: Date): Promise<Banner[]>;
+  readWeeklyBanners(weekStart: string, currentTime: string): Promise<Banner[]>;
+}
+
+export interface AnnounceController {
+  makeAnnounce(announce: Announce): Promise<void>;
+  readWeeklyAnnounce(
+    weekStart: string,
+    currentTime: string
+  ): Promise<Announce[]>;
 }

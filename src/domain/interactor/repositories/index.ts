@@ -1,3 +1,4 @@
+import { Announce } from '../../entities/Announce';
 import { Banner, BannerExposePlace } from '../../entities/Banner';
 import { ContentType, Service } from '../../entities/Content';
 import { DuplicateSchedule } from '../../entities/DuplicateSchedule';
@@ -11,8 +12,8 @@ export interface DuplicateScheduleRepository {
     isLink: boolean,
     connectionLink: string,
     imageUrl: string,
-    startTime: Date,
-    endTime: Date
+    startTime: string,
+    endTime: string
   ): Promise<DuplicateSchedule[]>;
 
   createDuplicateSchedule(
@@ -22,5 +23,10 @@ export interface DuplicateScheduleRepository {
 
 export interface BannerRepository {
   createBanner(banner: Banner): Promise<string>;
-  getWeekBannersByWeekStart(weekStart: Date): Promise<Banner[]>;
+  getWeeklyBannersByWeekStart(weekStart: string): Promise<Banner[]>;
+}
+
+export interface AnnounceRepository {
+  createAnnounce(announce: Announce): Promise<void>;
+  getWeeklyAnnouncesByWeekStart(weekStart: string): Promise<Announce[]>;
 }

@@ -36,15 +36,6 @@
     { "id": 4, "name": "성공" }
   ],
 
-  "notice": {
-    "id": 1,
-    "description": "hello",
-    "noticeCategory": 1,
-    "exposureMethod": false,
-    "imageUrl": "https://www.google.co.kr/",
-    "postId": 1
-  },
-
   "post": [
     {
       "id": 1,
@@ -70,6 +61,19 @@
       "contentType": "Banner",
       "service": "retail",
       "bannerExposePlace": "dashboardBottom",
+      "startTime": "2022-02-13T15:00:00.000Z",
+      "endTime": "2022-02-19T15:00:00.000Z"
+    }
+  ],
+
+  "announce": [
+    {
+      "id": 1,
+      "description": "hello",
+      "noticeCategory": 1,
+      "exposureMethod": false,
+      "imageUrl": "https://www.google.co.kr/",
+      "postId": 1,
       "startTime": "2022-02-13T15:00:00.000Z",
       "endTime": "2022-02-19T15:00:00.000Z"
     }

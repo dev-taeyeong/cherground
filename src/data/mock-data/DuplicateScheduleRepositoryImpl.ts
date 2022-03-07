@@ -17,8 +17,8 @@ export class DuplicateScheduleRepositoryImpl
     isLink: boolean,
     connectionLink: string,
     imageUrl: string,
-    startTime: Date,
-    endTime: Date
+    startTime: string,
+    endTime: string
   ) {
     const getDuplicateScheduleData: Promise<DuplicateSchedule[]> = new Promise(
       (resolve, reject) => {

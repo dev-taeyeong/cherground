@@ -19,7 +19,7 @@ export class BannerRouterImpl implements BannerRouter {
     this.bannerController = bannerController;
     this.router = express.Router();
 
-    this.router.post('/', (req, res) => {
+    this.router.post('/', (req: express.Request, res: express.Response) => {
       const banner: Banner = req.body;
 
       this.bannerController
@@ -27,12 +27,12 @@ export class BannerRouterImpl implements BannerRouter {
         .then((data) => res.status(201).json(data));
     });
 
-    this.router.post('/week', (req, res) => {
-      const { weekStart, currentTime }: { weekStart: Date; currentTime: Date } =
-        req.body;
+    this.router.get('/', (req: express.Request, res: express.Response) => {
+      const { 'week-start': weekStart, 'current-time': currentTime } =
+        req.query as { 'week-start': string; 'current-time': string };
 
       this.bannerController
-        .readWeekBanners(weekStart, currentTime)
+        .readWeeklyBanners(weekStart, currentTime)
         .then((banners) => res.status(200).json(banners));
     });
   }

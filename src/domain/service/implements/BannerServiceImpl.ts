@@ -2,12 +2,12 @@ import { inject, injectable } from 'inversify';
 import { BannerService } from '..';
 import { TYPES } from '../../../TYPES';
 import { Banner } from '../../entities/Banner';
-import { DuplicateSchedule } from '../../entities/DuplicateSchedule';
 import { BannerRepository } from '../../interactor/repositories';
 
 @injectable()
 export class BannerServiceImpl implements BannerService {
-  bannerRepository: BannerRepository;
+  private bannerRepository: BannerRepository;
+
   constructor(
     @inject(TYPES.BannerRepository) bannerRepository: BannerRepository
   ) {
@@ -20,31 +20,31 @@ export class BannerServiceImpl implements BannerService {
       .then((createdBannerId: string) => createdBannerId);
   }
 
-  readWeekBanners(weekStart: Date, currentTime: Date): Promise<Banner[]> {
+  readWeeklyBanners(weekStart: string, currentTime: string): Promise<Banner[]> {
     return this.bannerRepository
-      .getWeekBannersByWeekStart(weekStart)
-      .then((weekBanners) => {
-        weekBanners.forEach((weekBanner) => {
+      .getWeeklyBannersByWeekStart(weekStart)
+      .then((weeklyBanners) => {
+        weeklyBanners.forEach((weeklyBanner) => {
           if (
-            new Date(weekBanner.startTime).getTime() <=
+            new Date(weeklyBanner.startTime).getTime() <=
               new Date(currentTime).getTime() &&
-            new Date(weekBanner.endTime).getTime() >
+            new Date(weeklyBanner.endTime).getTime() >
               new Date(currentTime).getTime()
           ) {
-            weekBanner.state = 'live';
+            weeklyBanner.state = 'live';
           } else if (
-            new Date(weekBanner.startTime).getTime() <=
+            new Date(weeklyBanner.startTime).getTime() <=
               new Date(currentTime).getTime() &&
-            new Date(weekBanner.endTime).getTime() <=
+            new Date(weeklyBanner.endTime).getTime() <=
               new Date(currentTime).getTime()
           ) {
-            weekBanner.state = 'end';
+            weeklyBanner.state = 'end';
           } else {
-            weekBanner.state = 'reservation';
+            weeklyBanner.state = 'reservation';
           }
         });
 
-        return weekBanners;
+        return weeklyBanners;
       });
   }
 }

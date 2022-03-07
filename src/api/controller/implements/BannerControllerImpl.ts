@@ -6,7 +6,8 @@ import { TYPES } from '../../../TYPES';
 
 @injectable()
 export class BannerControllerImpl implements BannerController {
-  bannerService: BannerService;
+  private bannerService: BannerService;
+
   constructor(@inject(TYPES.BannerService) bannerService: BannerService) {
     this.bannerService = bannerService;
   }
@@ -15,7 +16,7 @@ export class BannerControllerImpl implements BannerController {
     return this.bannerService.makeBanner(banner);
   }
 
-  readWeekBanners(weekStart: Date, currentTime: Date): Promise<Banner[]> {
-    return this.bannerService.readWeekBanners(weekStart, currentTime);
+  readWeeklyBanners(weekStart: string, currentTime: string): Promise<Banner[]> {
+    return this.bannerService.readWeeklyBanners(weekStart, currentTime);
   }
 }

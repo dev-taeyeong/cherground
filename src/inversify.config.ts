@@ -1,23 +1,36 @@
 import { Container } from 'inversify';
 import {
+  AnnounceController,
   BannerController,
   DuplicateScheduleController,
 } from './api/controller';
+import { AnnounceControllerImpl } from './api/controller/implements/AnnounceControllerImpl';
 import { BannerControllerImpl } from './api/controller/implements/BannerControllerImpl';
 import { DuplicateScheduleControllerImpl } from './api/controller/implements/DuplicateScheduleController';
 import { Routes, RoutesImpl } from './api/routes';
-import { BannerRouter, BannerRouterImpl } from './api/routes/BannerRouter';
+import {
+  AnnounceRouter,
+  AnnounceRouterImpl,
+} from './api/routes/AnnounceRouter';
+import { BannerRouter, BannerRouterImpl } from './api/routes/BannerRouterImpl';
 import {
   DuplicateScheduleRouter,
   DuplicateScheduleRouterImpl,
-} from './api/routes/DuplicateScheduleRouter';
+} from './api/routes/DuplicateScheduleRouterImpl';
+import { AnnounceRepositoryImpl } from './data/mock-data/AnnounceRepositoryImpl';
 import { BannerRepositoryImpl } from './data/mock-data/BannerRepositoryImpl';
 import { DuplicateScheduleRepositoryImpl } from './data/mock-data/DuplicateScheduleRepositoryImpl';
 import {
+  AnnounceRepository,
   BannerRepository,
   DuplicateScheduleRepository,
 } from './domain/interactor/repositories';
-import { BannerService, DuplicateScheduleService } from './domain/service';
+import {
+  AnnounceService,
+  BannerService,
+  DuplicateScheduleService,
+} from './domain/service';
+import { AnnounceServiceImpl } from './domain/service/implements/AnnounceServiceImpl';
 import { BannerServiceImpl } from './domain/service/implements/BannerServiceImpl';
 import { DuplicateScheduleServiceImpl } from './domain/service/implements/DuplicateScheduleServiceImpl';
 import { TYPES } from './TYPES';
@@ -50,3 +63,13 @@ container
 container
   .bind<DuplicateScheduleRouter>(TYPES.DuplicateScheduleRouter)
   .to(DuplicateScheduleRouterImpl);
+
+// Announce
+container
+  .bind<AnnounceRepository>(TYPES.AnnounceRepository)
+  .to(AnnounceRepositoryImpl);
+container.bind<AnnounceService>(TYPES.AnnounceService).to(AnnounceServiceImpl);
+container
+  .bind<AnnounceController>(TYPES.AnnounceController)
+  .to(AnnounceControllerImpl);
+container.bind<AnnounceRouter>(TYPES.AnnounceRouter).to(AnnounceRouterImpl);

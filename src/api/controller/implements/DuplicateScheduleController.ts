@@ -9,7 +9,8 @@ import { TYPES } from '../../../TYPES';
 export class DuplicateScheduleControllerImpl
   implements DuplicateScheduleController
 {
-  duplicateScheduleService: DuplicateScheduleService;
+  private duplicateScheduleService: DuplicateScheduleService;
+
   constructor(
     @inject(TYPES.DuplicateScheduleService)
     duplicateScheduleService: DuplicateScheduleService

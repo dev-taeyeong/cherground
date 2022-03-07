@@ -15,23 +15,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RoutesImpl = void 0;
+exports.DuplicateScheduleRouterImpl = void 0;
 const express_1 = __importDefault(require("express"));
 const inversify_1 = require("inversify");
 const TYPES_1 = require("../../TYPES");
-let RoutesImpl = class RoutesImpl {
-    constructor(bannerRouter, duplicateScheduleRouter) {
-        this.bannerRouter = bannerRouter;
-        this.duplicateScheduleRouter = duplicateScheduleRouter;
+let DuplicateScheduleRouterImpl = class DuplicateScheduleRouterImpl {
+    constructor(duplicateScheduleController) {
+        this.duplicateScheduleController = duplicateScheduleController;
         this.router = express_1.default.Router();
-        this.router.use('/banner', this.bannerRouter.router);
-        this.router.use('/duplicate-schedule', this.duplicateScheduleRouter.router);
+        this.router.post('/', (req, res) => {
+            const bannerData = req.body;
+            this.duplicateScheduleController
+                .adjustDuplicateSchedule(bannerData)
+                .then((data) => res.status(200).json(data));
+        });
+        this.router.put('/', (req, res) => {
+            const { duplicateSchedules, createdBannerId, } = req.body;
+            this.duplicateScheduleController
+                .makeDuplicateSchedule(duplicateSchedules, createdBannerId)
+                .then((data) => res.status(201).json({ message: 'CREATE_SUCCESS' }));
+        });
     }
 };
-RoutesImpl = __decorate([
+DuplicateScheduleRouterImpl = __decorate([
     (0, inversify_1.injectable)(),
-    __param(0, (0, inversify_1.inject)(TYPES_1.TYPES.BannerRouter)),
-    __param(1, (0, inversify_1.inject)(TYPES_1.TYPES.DuplicateScheduleRouter)),
-    __metadata("design:paramtypes", [Object, Object])
-], RoutesImpl);
-exports.RoutesImpl = RoutesImpl;
+    __param(0, (0, inversify_1.inject)(TYPES_1.TYPES.DuplicateScheduleController)),
+    __metadata("design:paramtypes", [Object])
+], DuplicateScheduleRouterImpl);
+exports.DuplicateScheduleRouterImpl = DuplicateScheduleRouterImpl;

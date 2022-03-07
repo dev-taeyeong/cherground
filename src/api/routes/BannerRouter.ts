@@ -20,19 +20,20 @@ export class BannerRouterImpl implements BannerRouter {
     this.router = express.Router();
 
     this.router.post('/', (req, res) => {
-      const bannerData: Banner = req.body;
+      const banner: Banner = req.body;
 
-      const overlapData = this.bannerController.makeBanner(bannerData);
-
-      return res.status(201).json(overlapData);
+      this.bannerController
+        .makeBanner(banner)
+        .then((data) => res.status(201).json(data));
     });
 
-    this.router.get('/:id', (req, res) => {
-      const { id }: { id: string } = req.params;
+    this.router.post('/week', (req, res) => {
+      const { weekStart, currentTime }: { weekStart: Date; currentTime: Date } =
+        req.body;
 
-      const bannerData = this.bannerController.readBannerDetail(parseInt(id));
-
-      return res.status(200).json(bannerData);
+      this.bannerController
+        .readWeekBanners(weekStart, currentTime)
+        .then((banners) => res.status(200).json(banners));
     });
   }
 }

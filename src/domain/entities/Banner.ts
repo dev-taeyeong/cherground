@@ -1,8 +1,14 @@
-import { Post } from './Post';
+import { Content } from './Content';
 
-export interface Banner extends Post {
-  linkUrl?: string; // 배너를 클릭했을 때 이동할 url, Nullable(링크가 없을 경우 Null)
+export type BannerExposePlace = 'dashboardTop' | 'dashboardBottom';
+export type BannerState = 'live' | 'end' | 'reservation';
+
+export interface Banner extends Content {
+  bannerExposePlace: BannerExposePlace; // 배너 노출 위치 (dashboardTop, dashboardBottom)
+  isLink: boolean; // 링크가 있는지
+  connectionLink: string | null; // 링크 url
   imageUrl: string; // 콘텐츠에 표시될 이미지 url
+  state?: BannerState; // 배너의 현재 상태 (live, end, reservation)
 }
 
 //

@@ -8,6 +8,5 @@ class NoticeServiceImpl {
     validateNoticeOverlap(notice) {
         return this.noticeRepository.getNoticeByTypeAndTime(notice.type, notice.startTime, notice.endTime);
     }
-    makeNotice(notice) { }
 }
 exports.NoticeServiceImpl = NoticeServiceImpl;

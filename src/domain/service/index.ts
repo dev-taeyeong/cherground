@@ -1,43 +1,28 @@
-import { CalendarData, StateData } from '../../TYPES';
-import { Banner } from '../entities/Banner';
-import { MediaLocation } from '../entities/MediaLocation';
-import { Notice } from '../entities/Notice';
-import { OverlapBannerSchedule } from '../entities/OverlapBannerSchedule';
-import { Post } from '../entities/Post';
-import { ProductType } from '../entities/ProductType';
+import { Banner, BannerExposePlace } from '../entities/Banner';
+import { Announce } from '../entities/Announce';
+import { DuplicateSchedule } from '../entities/DuplicateSchedule';
+import { ContentType, Service } from '../entities/Content';
 
-export interface NoticeService {
-  validateNoticeOverlap(notice: Notice): Promise<boolean>;
-  makeNotice(notice: Notice): Promise<void>;
+export interface DuplicateScheduleService {
+  adjustDuplicateSchedules(
+    contentType: ContentType,
+    title: string,
+    service: Service,
+    bannerExposePlace: BannerExposePlace,
+    isLink: boolean,
+    connectionLink: string,
+    imageUrl: string,
+    startTime: Date,
+    endTime: Date
+  ): Promise<DuplicateSchedule[] | void>;
 
-  getNoticeDetail(id: number): Promise<Notice>;
-  updateNotice(id: number, notice: Notice): Promise<void>;
+  makeDuplicateSchedule(
+    duplicateSchedules: DuplicateSchedule[],
+    createdBannerId: string
+  ): Promise<void>;
 }
 
 export interface BannerService {
-  getOverlapBannerSchedules(
-    title: string,
-    productType: ProductType,
-    mediaLocation: MediaLocation,
-    startTime: Date,
-    endTime: Date
-  ): Promise<OverlapBannerSchedule[] | void>;
-
-  // makeBanner(
-  //   banner: Banner,
-  //   overlapBannerSchedule: OverlapBannerSchedule
-  // ): Promise<void>; // 배너 생성
-
-  getBannerDetail(id: number): Promise<Banner>;
-  // // getCopyBannerDetail(id: number): Promise<Banner>; title 뒤에 '(1)' 붙이기
-
-  // updateBanner(id: number, banner: Banner): Promise<void>;
-}
-
-export interface PostService {
-  getCalendarData(startDate: Date, endDate: Date): Promise<CalendarData>;
-
-  getPostList(condition: number, state: StateData): Promise<Post[]>;
-
-  deletePost(id: number): Promise<void>;
+  makeBanner(banner: Banner): Promise<string>; // 배너 생성
+  readWeekBanners(weekStart: Date, currentTime: Date): Promise<Banner[]>;
 }

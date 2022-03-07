@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { BannerController } from '..';
+import { Banner } from '../../../domain/entities/Banner';
 import { BannerService } from '../../../domain/service';
 import { TYPES } from '../../../TYPES';
 
@@ -10,19 +11,11 @@ export class BannerControllerImpl implements BannerController {
     this.bannerService = bannerService;
   }
 
-  makeBanner(bannerData: any) {
-    const { title, productType, mediaLocation, startTime, endTime } =
-      bannerData;
-    return this.bannerService.getOverlapBannerSchedules(
-      title,
-      productType,
-      mediaLocation,
-      startTime,
-      endTime
-    );
+  makeBanner(banner: Banner) {
+    return this.bannerService.makeBanner(banner);
   }
 
-  readBannerDetail(id: number) {
-    return this.bannerService.getBannerDetail(id);
+  readWeekBanners(weekStart: Date, currentTime: Date): Promise<Banner[]> {
+    return this.bannerService.readWeekBanners(weekStart, currentTime);
   }
 }

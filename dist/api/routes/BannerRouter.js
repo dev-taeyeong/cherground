@@ -24,14 +24,16 @@ let BannerRouterImpl = class BannerRouterImpl {
         this.bannerController = bannerController;
         this.router = express_1.default.Router();
         this.router.post('/', (req, res) => {
-            const bannerData = req.body;
-            const overlapData = this.bannerController.makeBanner(bannerData);
-            return res.status(201).json(overlapData);
+            const banner = req.body;
+            this.bannerController
+                .makeBanner(banner)
+                .then((data) => res.status(201).json(data));
         });
-        this.router.get('/:id', (req, res) => {
-            const { id } = req.params;
-            const bannerData = this.bannerController.readBannerDetail(parseInt(id));
-            return res.status(200).json(bannerData);
+        this.router.post('/week', (req, res) => {
+            const { weekStart, currentTime } = req.body;
+            this.bannerController
+                .readWeekBanners(weekStart, currentTime)
+                .then((banners) => res.status(200).json(banners));
         });
     }
 };

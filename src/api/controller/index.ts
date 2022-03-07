@@ -1,20 +1,18 @@
 import { Banner } from '../../domain/entities/Banner';
-import { Post } from '../../domain/entities/Post';
-import { StateData } from '../../TYPES';
+import { DuplicateSchedule } from '../../domain/entities/DuplicateSchedule';
 
-export interface NoticeController {
-  makeNotice(noticeData);
-  readAllNotices();
-  readNoticeDetail(id: number);
-  updateNotice(id: number, noticeData);
-  deleteNotice(id: number);
+export interface DuplicateScheduleController {
+  adjustDuplicateSchedule(
+    bannerData: Banner
+  ): Promise<DuplicateSchedule[] | void>;
+
+  makeDuplicateSchedule(
+    duplicateScedules: DuplicateSchedule[],
+    createdBannerId: string
+  ): Promise<void>;
 }
 
 export interface BannerController {
-  makeBanner(bannerData);
-  readBannerDetail(id: number): Promise<Banner>;
-}
-
-export interface PostController {
-  getPostList(condition: number, state: StateData): Promise<Post>;
+  makeBanner(banner: Banner): Promise<string>;
+  readWeekBanners(weekStart: Date, currentTime: Date): Promise<Banner[]>;
 }

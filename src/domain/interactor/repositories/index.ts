@@ -1,23 +1,26 @@
-import { Banner } from '../../entities/Banner';
-import { MediaLocation } from '../../entities/MediaLocation';
-import { OverlapBannerSchedule } from '../../entities/OverlapBannerSchedule';
-import { ProductType } from '../../entities/ProductType';
+import { Banner, BannerExposePlace } from '../../entities/Banner';
+import { ContentType, Service } from '../../entities/Content';
+import { DuplicateSchedule } from '../../entities/DuplicateSchedule';
 
-export interface NoticeRepository {
-  getNoticeByTypeAndTime(
-    type: string,
+export interface DuplicateScheduleRepository {
+  getDuplicateSchedule(
+    contentType: ContentType,
+    title: string,
+    service: Service,
+    bannerExposePlace: BannerExposePlace,
+    isLink: boolean,
+    connectionLink: string,
+    imageUrl: string,
     startTime: Date,
     endTime: Date
-  ): Promise<boolean>;
+  ): Promise<DuplicateSchedule[]>;
+
+  createDuplicateSchedule(
+    duplicateSchedules: DuplicateSchedule[]
+  ): Promise<void>;
 }
 
 export interface BannerRepository {
-  getOverlapBannerSchedules(
-    productType: ProductType,
-    mediaLocation: MediaLocation,
-    startTime: Date,
-    endTime: Date
-  ): any;
-
-  getBannerById(id: number): Promise<Banner>;
+  createBanner(banner: Banner): Promise<string>;
+  getWeekBannersByWeekStart(weekStart: Date): Promise<Banner[]>;
 }

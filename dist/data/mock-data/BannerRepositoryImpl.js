@@ -10,28 +10,52 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BannerRepositoryImpl = void 0;
+const fs_1 = __importDefault(require("fs"));
 const inversify_1 = require("inversify");
-const lodash_1 = __importDefault(require("lodash"));
-const Data_1 = __importDefault(require("./Data"));
 let BannerRepositoryImpl = class BannerRepositoryImpl {
-    getOverlapBannerSchedules(productType, mediaLocation, startTime, endTime) {
-        const overlapBannerSchedules = [];
-        Data_1.default.overlapBannerSchedule.forEach((data) => {
-            if (data.scheduleStartTime.getTime() < new Date(endTime).getTime() &&
-                data.scheduleEndTime.getTime() > new Date(startTime).getTime()) {
-                overlapBannerSchedules.push(lodash_1.default.cloneDeep(data));
-            }
+    createBanner(banner) {
+        const getBannerData = new Promise((resolve, reject) => {
+            fs_1.default.readFile('./src/data/mock-data/data.json', 'utf-8', (err, data) => {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                }
+                else {
+                    resolve(JSON.parse(data).banner);
+                }
+            });
         });
-        return overlapBannerSchedules;
+        return getBannerData.then((bannerData) => {
+            banner.id = (bannerData.length + 1).toString();
+            bannerData.push(banner);
+            fs_1.default.writeFile('./src/data/mock-data/test.json', JSON.stringify(bannerData), (err) => {
+                if (err)
+                    console.log(err);
+            });
+            return bannerData.length + '';
+        });
     }
-    getBannerById(id) {
-        let bannerData;
-        Data_1.default.banner.forEach((data) => {
-            if (data.id === id) {
-                bannerData = lodash_1.default.cloneDeep(data);
-            }
+    getWeekBannersByWeekStart(weekStart) {
+        const getBannerData = new Promise((resolve, reject) => {
+            fs_1.default.readFile('./src/data/mock-data/data.json', 'utf-8', (err, data) => {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                }
+                else {
+                    resolve(JSON.parse(data).banner);
+                }
+            });
         });
-        return bannerData;
+        return getBannerData.then((banners) => {
+            return banners.filter((banner) => {
+                if (new Date(banner.startTime).getTime() <
+                    new Date(weekStart).getTime() + 1000 * 60 * 60 * 24 * 7 &&
+                    new Date(banner.endTime).getTime() > new Date(weekStart).getTime()) {
+                    return banner;
+                }
+            });
+        });
     }
 };
 BannerRepositoryImpl = __decorate([

@@ -14,11 +14,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostRouterImpl = void 0;
 const express_1 = __importDefault(require("express"));
 const inversify_1 = require("inversify");
 const TYPES_1 = require("../../TYPES");
+const controller_1 = require("../controller");
 let PostRouterImpl = class PostRouterImpl {
     constructor(postController) {
         this.postController = postController;
@@ -33,6 +35,6 @@ let PostRouterImpl = class PostRouterImpl {
 PostRouterImpl = __decorate([
     (0, inversify_1.injectable)(),
     __param(0, (0, inversify_1.inject)(TYPES_1.TYPES.BannerController)),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof controller_1.PostController !== "undefined" && controller_1.PostController) === "function" ? _a : Object])
 ], PostRouterImpl);
 exports.PostRouterImpl = PostRouterImpl;

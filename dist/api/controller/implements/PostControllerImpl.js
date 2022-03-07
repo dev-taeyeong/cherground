@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostControllerImpl = void 0;
 const inversify_1 = require("inversify");
+const service_1 = require("../../../domain/service");
 const TYPES_1 = require("../../../TYPES");
 let PostControllerImpl = class PostControllerImpl {
     constructor(postService) {
@@ -26,6 +28,6 @@ let PostControllerImpl = class PostControllerImpl {
 PostControllerImpl = __decorate([
     (0, inversify_1.injectable)(),
     __param(0, (0, inversify_1.inject)(TYPES_1.TYPES.BannerService)),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof service_1.PostService !== "undefined" && service_1.PostService) === "function" ? _a : Object])
 ], PostControllerImpl);
 exports.PostControllerImpl = PostControllerImpl;

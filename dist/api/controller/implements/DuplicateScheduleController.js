@@ -12,23 +12,26 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BannerControllerImpl = void 0;
+exports.DuplicateScheduleControllerImpl = void 0;
 const inversify_1 = require("inversify");
 const TYPES_1 = require("../../../TYPES");
-let BannerControllerImpl = class BannerControllerImpl {
-    constructor(bannerService) {
-        this.bannerService = bannerService;
+let DuplicateScheduleControllerImpl = class DuplicateScheduleControllerImpl {
+    constructor(duplicateScheduleService) {
+        this.duplicateScheduleService = duplicateScheduleService;
     }
-    makeBanner(banner) {
-        return this.bannerService.makeBanner(banner);
+    adjustDuplicateSchedule(bannerData) {
+        const { contentType, title, service, bannerExposePlace, isLink, connectionLink, imageUrl, startTime, endTime, } = bannerData;
+        return this.duplicateScheduleService
+            .adjustDuplicateSchedules(contentType, title, service, bannerExposePlace, isLink, connectionLink, imageUrl, startTime, endTime)
+            .then((duplicateSchedules) => duplicateSchedules);
     }
-    readWeekBanners(weekStart, currentTime) {
-        return this.bannerService.readWeekBanners(weekStart, currentTime);
+    makeDuplicateSchedule(duplicateScedules, createdBannerId) {
+        return this.duplicateScheduleService.makeDuplicateSchedule(duplicateScedules, createdBannerId);
     }
 };
-BannerControllerImpl = __decorate([
+DuplicateScheduleControllerImpl = __decorate([
     (0, inversify_1.injectable)(),
-    __param(0, (0, inversify_1.inject)(TYPES_1.TYPES.BannerService)),
+    __param(0, (0, inversify_1.inject)(TYPES_1.TYPES.DuplicateScheduleService)),
     __metadata("design:paramtypes", [Object])
-], BannerControllerImpl);
-exports.BannerControllerImpl = BannerControllerImpl;
+], DuplicateScheduleControllerImpl);
+exports.DuplicateScheduleControllerImpl = DuplicateScheduleControllerImpl;

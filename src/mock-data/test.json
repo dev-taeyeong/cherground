@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "isLink": true,
+    "connectionLink": "https://www.google.co.kr/",
+    "imageUrl": "https://www.google.co.kr/",
+    "title": "Banner1",
+    "contentType": "Banner",
+    "service": "retail",
+    "bannerExposePlace": "dashboardBottom",
+    "startTime": "2022-02-11T15:00:00.000Z",
+    "endTime": "2022-02-15T15:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "isLink": true,
+    "connectionLink": "https://www.google.co.kr/",
+    "imageUrl": "https://www.google.co.kr/",
+    "title": "Banner2",
+    "contentType": "Banner",
+    "service": "retail",
+    "bannerExposePlace": "dashboardBottom",
+    "startTime": "2022-02-13T15:00:00.000Z",
+    "endTime": "2022-02-19T15:00:00.000Z"
+  },
+  {
+    "contentType": "Banner",
+    "title": "test data",
+    "service": "retail",
+    "bannerExposePlace": "dashboardBottom",
+    "isLink": true,
+    "connectionLink": "https://www.google.co.kr",
+    "imageUrl": "image.url",
+    "startTime": "2022-02-10T15:00:00.000Z",
+    "endTime": "2022-02-21T15:00:00.000Z",
+    "id": "3"
+  }
+]

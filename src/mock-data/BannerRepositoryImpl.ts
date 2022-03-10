@@ -1,13 +1,13 @@
 import fs from 'fs';
 import { injectable } from 'inversify';
-import { Banner } from '../../domain/entities/Banner';
-import { BannerRepository } from '../../domain/interactor/repositories';
+import { Banner } from '../domain/entities/Banner';
+import { BannerRepository } from '../domain/interactor/repositories';
 
 @injectable()
 export class BannerRepositoryImpl implements BannerRepository {
   createBanner(banner: Banner): Promise<string> {
     const getBannerData: Promise<Banner[]> = new Promise((resolve, reject) => {
-      fs.readFile('./src/data/mock-data/data.json', 'utf-8', (err, data) => {
+      fs.readFile('./src/mock-data/data.json', 'utf-8', (err, data) => {
         if (err) {
           reject(err);
         } else {
@@ -20,7 +20,7 @@ export class BannerRepositoryImpl implements BannerRepository {
       banner.id = (bannerData.length + 1).toString();
       bannerData.push(banner);
       fs.writeFile(
-        './src/data/mock-data/test.json',
+        './src/mock-data/test.json',
         JSON.stringify(bannerData),
         (err) => {
           if (err) console.log(err);
@@ -33,7 +33,7 @@ export class BannerRepositoryImpl implements BannerRepository {
 
   getWeeklyBannersByWeekStart(weekStart: string): Promise<Banner[]> {
     const getBannerData: Promise<Banner[]> = new Promise((resolve, reject) => {
-      fs.readFile('./src/data/mock-data/data.json', 'utf-8', (err, data) => {
+      fs.readFile('./src/mock-data/data.json', 'utf-8', (err, data) => {
         if (err) {
           reject(err);
         } else {

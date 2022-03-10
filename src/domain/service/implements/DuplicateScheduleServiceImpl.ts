@@ -2,9 +2,9 @@ import { inject, injectable } from 'inversify';
 import lodash from 'lodash';
 import { DuplicateScheduleService } from '..';
 import { TYPES } from '../../../TYPES';
-import { BannerExposePlace } from '../../entities/Banner';
-import { ContentType, Service } from '../../entities/Content';
+import { BannerExposePlace } from '../../entities/BannerExposePlace';
 import { DuplicateSchedule } from '../../entities/DuplicateSchedule';
+import { Service } from '../../entities/Service';
 import { DuplicateScheduleRepository } from '../../interactor/repositories';
 
 @injectable()
@@ -19,28 +19,17 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
   }
 
   adjustDuplicateSchedules(
-    contentType: ContentType,
     title: string,
     service: Service,
     bannerExposePlace: BannerExposePlace,
     isLink: boolean,
     connectionLink: string,
-    imageUrl: string,
+    bannerImgUrl: string,
     startTime: string,
     endTime: string
-  ): Promise<DuplicateSchedule[]> {
+  ): Promise<{}> {
     return this.duplicateScheduleRepository
-      .getDuplicateSchedule(
-        contentType,
-        title,
-        service,
-        bannerExposePlace,
-        isLink,
-        connectionLink,
-        imageUrl,
-        startTime,
-        endTime
-      )
+      .getDuplicateSchedule(bannerExposePlace, startTime, endTime)
       .then((duplicateSchedules) => {
         // 중복되는 스케줄이 없을 때
         if (duplicateSchedules.length === 0) {
@@ -53,9 +42,8 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
                     id: null,
                     isLink,
                     connectionLink,
-                    imageUrl,
+                    bannerImgUrl,
                     title,
-                    contentType,
                     service,
                     bannerExposePlace,
                     startTime,
@@ -79,7 +67,6 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
         let createCount = 0;
 
         // 배너 중복 스케줄에서 잘라야 하는 스케줄 찾기
-
         duplicateSchedules.forEach(
           (duplicateSchedule: DuplicateSchedule, index: number) => {
             if (
@@ -109,6 +96,8 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
           );
 
           duplicateSchedules[duplicateSchedules.length - 1].id = null;
+          duplicateSchedules[duplicateSchedules.length - 1].exposeInterval =
+            null;
           duplicateSchedules[duplicateSchedules.length - 1].scheduleStartTime =
             startTime;
 
@@ -125,6 +114,8 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
           duplicateSchedules.push(lodash.cloneDeep(duplicateSchedules[0]));
 
           duplicateSchedules[duplicateSchedules.length - 1].id = null;
+          duplicateSchedules[duplicateSchedules.length - 1].exposeInterval =
+            null;
           duplicateSchedules[
             duplicateSchedules.length - 1
           ].overlapBanners.pop();
@@ -145,6 +136,8 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
           );
 
           duplicateSchedules[duplicateSchedules.length - 1].id = null;
+          duplicateSchedules[duplicateSchedules.length - 1].exposeInterval =
+            null;
           duplicateSchedules[duplicateSchedules.length - 1].scheduleEndTime =
             endTime;
 
@@ -168,6 +161,8 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
           );
 
           duplicateSchedules[duplicateSchedules.length - 1].id = null;
+          duplicateSchedules[duplicateSchedules.length - 1].exposeInterval =
+            null;
           duplicateSchedules[
             duplicateSchedules.length - 1
           ].overlapBanners.pop();
@@ -202,18 +197,10 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
               });
 
               overlapBannerSchedule.overlapBanners.push({
-                banner: {
-                  id: null,
-                  contentType,
-                  title,
-                  service,
-                  bannerExposePlace,
-                  isLink,
-                  connectionLink,
-                  imageUrl,
-                  startTime,
-                  endTime,
-                },
+                id: null,
+                title,
+                startTime,
+                endTime,
                 ordinal: 'first',
               });
             }
@@ -230,7 +217,20 @@ export class DuplicateScheduleServiceImpl implements DuplicateScheduleService {
           }
         );
 
-        return duplicateSchedules;
+        return {
+          duplicateSchedules,
+          banner: {
+            id: null,
+            title,
+            service,
+            bannerExposePlace,
+            isLink,
+            connectionLink,
+            bannerImgUrl,
+            startTime,
+            endTime,
+          },
+        };
       });
   }
 

@@ -26,7 +26,9 @@ export class DuplicateScheduleRouterImpl implements DuplicateScheduleRouter {
 
       this.duplicateScheduleController
         .adjustDuplicateSchedule(bannerData)
-        .then((data) => res.status(200).json(data));
+        .then((data) => {
+          res.status(200).json(data);
+        });
     });
 
     this.router.put('/', (req, res) => {

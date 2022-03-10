@@ -12,8 +12,8 @@ export class BannerControllerImpl implements BannerController {
     this.bannerService = bannerService;
   }
 
-  makeBanner(banner: Banner) {
-    return this.bannerService.makeBanner(banner);
+  makeBanner(data) {
+    return this.bannerService.makeBanner(data);
   }
 
   readWeeklyBanners(weekStart: string, currentTime: string): Promise<Banner[]> {

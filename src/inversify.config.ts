@@ -17,9 +17,6 @@ import {
   DuplicateScheduleRouter,
   DuplicateScheduleRouterImpl,
 } from './api/routes/DuplicateScheduleRouterImpl';
-import { AnnounceRepositoryImpl } from './data/mock-data/AnnounceRepositoryImpl';
-import { BannerRepositoryImpl } from './data/mock-data/BannerRepositoryImpl';
-import { DuplicateScheduleRepositoryImpl } from './data/mock-data/DuplicateScheduleRepositoryImpl';
 import {
   AnnounceRepository,
   BannerRepository,
@@ -34,13 +31,26 @@ import { AnnounceServiceImpl } from './domain/service/implements/AnnounceService
 import { BannerServiceImpl } from './domain/service/implements/BannerServiceImpl';
 import { DuplicateScheduleServiceImpl } from './domain/service/implements/DuplicateScheduleServiceImpl';
 import { TYPES } from './TYPES';
+import { OrmConfig, OrmConfigImpl } from './OrmConfig';
+import { AnnounceDao, BannerDao, DuplicateScheduleDao } from './data/dao';
+import { ToBannerDaoImpl } from './data/dao/TypeORM/ToBannerDaoImpl';
+import { ToDuplicateScheduleDaoImpl } from './data/dao/TypeORM/ToDuplicateScheduleDaoImpl';
+import { ToAnnounceDaoImpl } from './data/dao/TypeORM/ToAnnounceDaoImpl';
+import { BannerRepositoryImpl } from './data/repository/BannerRepositoryImpl';
+import { DuplicateScheduleRepositoryImpl } from './data/repository/DuplicateScheduleRepositoryImpl';
+import { AnnounceRepositoryImpl } from './data/repository/AnnounceRepositoryImpl';
+// import { DuplicateScheduleRepositoryImpl } from './mock-data/DuplicateScheduleRepositoryImpl';
 
 export const container = new Container();
+
+// OrmConfig
+container.bind<OrmConfig>(TYPES.OrmConfig).to(OrmConfigImpl);
 
 // Routes
 container.bind<Routes>(TYPES.Routes).to(RoutesImpl);
 
 // Banner
+container.bind<BannerDao>(TYPES.BannerDao).to(ToBannerDaoImpl);
 container
   .bind<BannerRepository>(TYPES.BannerRepository)
   .to(BannerRepositoryImpl);
@@ -51,6 +61,9 @@ container
 container.bind<BannerRouter>(TYPES.BannerRouter).to(BannerRouterImpl);
 
 // DuplicateSchedule
+container
+  .bind<DuplicateScheduleDao>(TYPES.DuplicateScheduleDao)
+  .to(ToDuplicateScheduleDaoImpl);
 container
   .bind<DuplicateScheduleRepository>(TYPES.DuplicateScheduleRepository)
   .to(DuplicateScheduleRepositoryImpl);
@@ -65,6 +78,7 @@ container
   .to(DuplicateScheduleRouterImpl);
 
 // Announce
+container.bind<AnnounceDao>(TYPES.AnnounceDao).to(ToAnnounceDaoImpl);
 container
   .bind<AnnounceRepository>(TYPES.AnnounceRepository)
   .to(AnnounceRepositoryImpl);

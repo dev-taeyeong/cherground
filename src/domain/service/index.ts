@@ -1,17 +1,17 @@
-import { Banner, BannerExposePlace } from '../entities/Banner';
+import { Banner } from '../entities/Banner';
 import { Announce } from '../entities/Announce';
 import { DuplicateSchedule } from '../entities/DuplicateSchedule';
-import { ContentType, Service } from '../entities/Content';
+import { BannerExposePlace } from '../entities/BannerExposePlace';
+import { Service } from '../entities/Service';
 
 export interface DuplicateScheduleService {
   adjustDuplicateSchedules(
-    contentType: ContentType,
     title: string,
     service: Service,
     bannerExposePlace: BannerExposePlace,
     isLink: boolean,
     connectionLink: string,
-    imageUrl: string,
+    bannerImgUrl: string,
     startTime: string,
     endTime: string
   ): Promise<DuplicateSchedule[] | void>;

@@ -22,26 +22,24 @@ export class DuplicateScheduleControllerImpl
     bannerData: Banner
   ): Promise<DuplicateSchedule[] | void> {
     const {
-      contentType,
       title,
       service,
       bannerExposePlace,
       isLink,
       connectionLink,
-      imageUrl,
+      bannerImgUrl,
       startTime,
       endTime,
     }: Banner = bannerData;
 
     return this.duplicateScheduleService
       .adjustDuplicateSchedules(
-        contentType,
         title,
         service,
         bannerExposePlace,
         isLink,
         connectionLink,
-        imageUrl,
+        bannerImgUrl,
         startTime,
         endTime
       )

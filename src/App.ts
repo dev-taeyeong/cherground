@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { Routes } from './api/routes';
 import { container } from './inversify.config';
 import { TYPES } from './TYPES';
+import { OrmConfig } from './OrmConfig';
 
 class App {
   private app: express.Application;
@@ -12,7 +13,8 @@ class App {
   private routes: Routes;
 
   constructor() {
-    dotenv.config();
+    container.get<OrmConfig>(TYPES.OrmConfig);
+
     this.routes = container.get<Routes>(TYPES.Routes);
     this.PORT = process.env.PORT;
     this.app = express();

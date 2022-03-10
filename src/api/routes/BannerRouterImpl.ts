@@ -20,10 +20,10 @@ export class BannerRouterImpl implements BannerRouter {
     this.router = express.Router();
 
     this.router.post('/', (req: express.Request, res: express.Response) => {
-      const banner: Banner = req.body;
+      const data: Banner = req.body;
 
       this.bannerController
-        .makeBanner(banner)
+        .makeBanner(data)
         .then((data) => res.status(201).json(data));
     });
 

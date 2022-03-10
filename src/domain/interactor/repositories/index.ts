@@ -1,17 +1,11 @@
 import { Announce } from '../../entities/Announce';
-import { Banner, BannerExposePlace } from '../../entities/Banner';
-import { ContentType, Service } from '../../entities/Content';
+import { Banner } from '../../entities/Banner';
+import { BannerExposePlace } from '../../entities/BannerExposePlace';
 import { DuplicateSchedule } from '../../entities/DuplicateSchedule';
 
 export interface DuplicateScheduleRepository {
   getDuplicateSchedule(
-    contentType: ContentType,
-    title: string,
-    service: Service,
     bannerExposePlace: BannerExposePlace,
-    isLink: boolean,
-    connectionLink: string,
-    imageUrl: string,
     startTime: string,
     endTime: string
   ): Promise<DuplicateSchedule[]>;
@@ -19,6 +13,14 @@ export interface DuplicateScheduleRepository {
   createDuplicateSchedule(
     duplicateSchedules: DuplicateSchedule[]
   ): Promise<void>;
+
+  createBannerAndDuplicateSchedule(
+    ordinal: string,
+    bannerId: string,
+    duplicateScheduleId: string
+  ): any;
+
+  updateDuplicateSchedule(duplicateSchedule: DuplicateSchedule): any;
 }
 
 export interface BannerRepository {

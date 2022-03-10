@@ -1,28 +1,21 @@
 import fs from 'fs';
 import { injectable } from 'inversify';
-import { BannerExposePlace } from '../../domain/entities/Banner';
-import { ContentType, Service } from '../../domain/entities/Content';
-import { DuplicateSchedule } from '../../domain/entities/DuplicateSchedule';
-import { DuplicateScheduleRepository } from '../../domain/interactor/repositories';
+import { BannerExposePlace } from '../domain/entities/BannerExposePlace';
+import { DuplicateSchedule } from '../domain/entities/DuplicateSchedule';
+import { DuplicateScheduleRepository } from '../domain/interactor/repositories';
 
 @injectable()
 export class DuplicateScheduleRepositoryImpl
   implements DuplicateScheduleRepository
 {
   getDuplicateSchedule(
-    contentType: ContentType,
-    title: string,
-    service: Service,
     bannerExposePlace: BannerExposePlace,
-    isLink: boolean,
-    connectionLink: string,
-    imageUrl: string,
     startTime: string,
     endTime: string
   ) {
     const getDuplicateScheduleData: Promise<DuplicateSchedule[]> = new Promise(
       (resolve, reject) => {
-        fs.readFile('./src/data/mock-data/data.json', 'utf-8', (err, data) => {
+        fs.readFile('./src/mock-data/data.json', 'utf-8', (err, data) => {
           if (err) reject(err);
           else resolve(JSON.parse(data).duplicateSchedule);
         });
@@ -48,7 +41,7 @@ export class DuplicateScheduleRepositoryImpl
   ): Promise<void> {
     const getDuplicateSchedules: Promise<DuplicateSchedule[]> = new Promise(
       (resolve, reject) => {
-        fs.readFile('./src/data/mock-data/data.json', 'utf-8', (err, data) => {
+        fs.readFile('./src/mock-data/data.json', 'utf-8', (err, data) => {
           if (err) reject(err);
           else resolve(JSON.parse(data).duplicateSchedule);
         });
@@ -70,7 +63,7 @@ export class DuplicateScheduleRepositoryImpl
       });
 
       fs.writeFile(
-        './src/data/mock-data/update-duplicateSchedule.json',
+        './src/mock-data/update-duplicateSchedule.json',
         JSON.stringify(duplicateScheduleDatas),
         (err) => {
           if (err) console.log(err);

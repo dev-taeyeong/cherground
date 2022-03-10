@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { injectable } from 'inversify';
-import { Announce } from '../../domain/entities/Announce';
-import { AnnounceRepository } from '../../domain/interactor/repositories';
+import { Announce } from '../domain/entities/Announce';
+import { AnnounceRepository } from '../domain/interactor/repositories';
 
 @injectable()
 export class AnnounceRepositoryImpl implements AnnounceRepository {
@@ -10,7 +10,7 @@ export class AnnounceRepositoryImpl implements AnnounceRepository {
   getWeeklyAnnouncesByWeekStart(weekStart: string): Promise<Announce[]> {
     const getAnnounceData: Promise<Announce[]> = new Promise(
       (resolve, reject) => {
-        fs.readFile('./src/data/mock-data/data.json', 'utf-8', (err, data) => {
+        fs.readFile('./src/mock-data/data.json', 'utf-8', (err, data) => {
           if (err) {
             reject(err);
           } else {
